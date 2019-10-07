@@ -53,7 +53,7 @@ def main(argv):
     tag = ''
     count = 200
     date_since = '2019-1-1'
-    opts, _ = getopt.getopt(argv, "ht:c:d:", ["tag=", "count=", "date="])
+    opts, args = getopt.getopt(argv, "ht:c:d:", ["tag=", "count=", "date="])
     if not opts:
         print('dfmaker.py -t <tag> -c <count> -d <date>')
         sys.exit(2)
@@ -64,7 +64,7 @@ def main(argv):
         elif opt in ("-t", "--tag"):
             tag = arg
         elif opt in ("-c", "--count"):
-            count = arg
+            count = int(arg)
         elif opt in ("-d", "--date"):
             date_since = arg
     if not tag:
@@ -76,4 +76,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+	main(sys.argv[1:])
