@@ -44,12 +44,13 @@ def sentiment_analyzer_scores(txt, engl=True):
         trans = translator.translate(txt).text
     score = analyser.polarity_scores(str(trans))
     lb = score['compound']
-    if lb >= 0.05:
-        return 1
-    elif (lb > -0.05) and (lb < 0.05):
-        return 0
-    else:
-        return -1
+    return lb
+    # if lb >= 0.05:
+    #     return 1
+    # elif (lb > -0.05) and (lb < 0.05):
+    #     return 0
+    # else:
+    #     return -1
 
 # %%
 
@@ -63,22 +64,26 @@ def getDataset(headsize, itemsize):
     for x in res:
         tweetlist = {}
         val = []
-        for tweet in tweepy.Cursor(api.user_timeline, id=x).items(itemsize):
-            t = clean_tweets(tweet.text)
-            k = sentiment_analyzer_scores(t)
-            val.append(k)
-            tweetlist[str(t)] = k
-            # tweetlist.update({ t : k })
-            # tweetlist.append(sentiment_analyzer_scores(t))
-        userval[str(x)] = mean(val)
+        try:
+            for tweet in tweepy.Cursor(api.user_timeline, id=x).items(itemsize):
+                t = clean_tweets(tweet.text)
+                k = sentiment_analyzer_scores(t)
+                val.append(k)
+                tweetlist[str(t)] = k
+                # tweetlist.update({ t : k })
+                # tweetlist.append(sentiment_analyzer_scores(t))
+            userval[str(x)] = mean(val)
+            print('.')
+        except tweepy.TweepError:  # Caused by inexistance of user x
+            pass
         # tweet.retweet_count
         # tweet.favorite_count
         # listOfTweets.append(dict_)
 
 
 # %%
-print(dataset.count())
-getDataset(500, 20)
+# print(dataset.shape[0])
+getDataset(dataset.shape[0], 20)
 
 # %%
 itemMaxValue = max(userval.items(), key=lambda x: x[1])
@@ -99,3 +104,7 @@ for key, value in userval.items():
 
 print('Minimum Sentiment Value : ', itemMinValue[1])
 print('Users with minimum Value : ', listOfKeys)
+
+# %%
+s=pd.DataFrame(list(userval.items()), columns=['user', 'sent'])
+s.to_csv('csv/egUserSent.csv')
