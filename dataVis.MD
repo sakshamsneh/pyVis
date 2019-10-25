@@ -1,5 +1,16 @@
-# MY PLANS
-## Plan 1:
+# OBJECTIVE
+## TOPIC
+Visualising social networks is a challenging area of work where connected graph provides a visual abstraction of the social network. In this project we will use tools to visualize social networks and study their evolution over time. Adding weights to the edges to indicate the strength of a relationship along with positive or negative bonding can be explored using different colour scheme. Visual representation is helpful in identifying influential nodes, strong subgroups or cliques, groups with negative association (who can be potential threats), etc.
+
+## WORK
+Finding:
+ * Nodes: The individuals whose network we are building
+ * Edges: The connection between the nodes. It represents a relationship between the nodes of the network.
+
+`Finding the edges/relation between nodes is important now.`
+
+## MY PLANS
+### Plan 1:
 1. Clean the dataset(only tweet, user, date and time)
 2. For each unique user:
     1. Find their last 50 tweets
@@ -11,9 +22,9 @@
 4. For all db:
   `find count of each unique users`
 
-## Plan 2:
+### Plan 2:
 1. Get the trending hashtag of any given day
 2. Same as [Plan 1](#plan-1)
 
-## Plan 3:
+### Plan 3:
 `Word cloud of a user, interactive as time-series, allowing user to view the changes in the posts made over a given time period.`
