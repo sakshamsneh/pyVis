@@ -1,9 +1,8 @@
 # %%
-import config as cfg
 import pandas as pd
 
 # %%
-dataset = pd.read_csv('#endgameTweets.csv')
+dataset = pd.read_csv('data/csv/#EndgameTweetsBig.csv')
 dataset.head(3)
 
 # %%
@@ -14,7 +13,7 @@ data = dataset[['Cleaned Tweet Text', 'Retweet Count',
 data.columns = ['tweet', 'rtc', 'user', 'datetime']
 
 # %%
-data.to_csv('egManipTweets2.csv')
+data.to_csv('data/csv/egManipTweets2.csv')
 
 # %%
 dataset = pd.read_csv('egManipTweets.csv')

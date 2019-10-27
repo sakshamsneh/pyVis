@@ -1,24 +1,16 @@
 # %%
 import pandas as pd
-import matplotlib as mpl
-import matplotlib.cm as cm
-import numpy as np
 import networkx as nx
-import re
 import matplotlib.pyplot as plt
 from pyvis.network import Network
-import colorsys
 
 # %%
 plt.ion()
 Gv = Network(notebook=False)
 dataset = pd.read_csv('data/csv/egUserSent.csv', index_col=0)
-norm = mpl.colors.Normalize(vmin=-20, vmax=10)
-cmap = cm.hot
-m = cm.ScalarMappable(norm=norm, cmap=cmap)
+G = nx.Graph()
 
 # %%
-G = nx.Graph()
 color_map = []
 dataset = dataset.sort_values(by=['sent'])
 for index, row in dataset.iterrows():
@@ -43,5 +35,4 @@ for index, row in dataset.iterrows():
 # %%
 # Gv.from_nx(G)
 Gv.show_buttons(filter_=['physics'])
-# G.enable_physics(True)
 Gv.show("html/mygraph.html")

@@ -28,3 +28,10 @@ Finding:
 
 ### Plan 3:
 `Word cloud of a user, interactive as time-series, allowing user to view the changes in the posts made over a given time period.`
+
+### Plan 4:
+1. Take 1000 random users from twitter.
+2. Make a dataset of all hashtags they have used, with the rt, fav and the sentiment of that tweet.
+3. Each user is a node.
+4. Edge is any two nodes having same hastag.
+5. Edge weight, node size, node color, etc can be set after that.
