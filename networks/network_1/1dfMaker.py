@@ -6,6 +6,7 @@ import tweepy
 import re
 import sys
 import getopt
+from yaspin import yaspin
 
 import config as cfg
 
@@ -34,6 +35,8 @@ def clean_tweets(lst):
 
 def get_tweets(listOfTweets, keyword, numOfTweets=20, date_since='2019-1-1', lang="en"):
     # Iterate through all tweets containing the given word, api search mode
+    spinner = yaspin()
+    spinner.start()
     for tweet in tweepy.Cursor(api.search, q=keyword, lang=lang, since=date_since).items(numOfTweets):
         # Add tweets in this format
         dict_ = {'Screen Name': tweet.user.screen_name,
@@ -50,8 +53,8 @@ def get_tweets(listOfTweets, keyword, numOfTweets=20, date_since='2019-1-1', lan
                  'Favorited': str(tweet.favorited),
                  'Replied': str(tweet.in_reply_to_status_id_str)
                  }
-        print('.', end="")
         listOfTweets.append(dict_)
+    spinner.stop()
     return listOfTweets
 
 
@@ -59,10 +62,17 @@ def get_tweets(listOfTweets, keyword, numOfTweets=20, date_since='2019-1-1', lan
 # dfmaker.py -t #Endgame -c 5000 -d 2019-4-4
 listOfTweets = []
 tag = '#Endgame'
-count = 5000
+count = 5
 date_since = '2019-4-4'
 listOfTweets = get_tweets(listOfTweets, tag, count, date_since)
 
 # %%
 dataset = pd.DataFrame(listOfTweets)
 dataset.to_csv('data/'+tag+'Tweets.csv')
+
+# %%
+data = dataset[['Cleaned Tweet Text', 'Retweet Count',
+                'Screen Name', 'Tweet Created At']].copy()
+data.columns = ['tweet', 'rtc', 'user', 'datetime']
+data.to_csv('data/egManipTweets2.csv')
+dataset = pd.read_csv('egManipTweets.csv')
