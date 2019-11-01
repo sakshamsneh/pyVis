@@ -35,3 +35,13 @@ Finding:
 3. Each user is a node.
 4. Edge is any two nodes having same hastag.
 5. Edge weight, node size, node color, etc can be set after that.
+
+### Plan 5:
+1. Take a random user.
+2. Get a list of followers the user has.
+3. Find all hashtags the user has used, with datetime.
+4. Find if his followers have also used the same hashtag.
+5. Same as [Plan 4](#plan-4) 's step 4.
+6. Datetime will help to create a timeline based approach, allowing us to see how the user used a hashtag, and how his followers increased/decreased the trendings.
+7. Over a course of time, it can be seen how some hashtags become more used, and how others wane over time.
+8. Find influential nodes, use sentiment analysis of the main user.
